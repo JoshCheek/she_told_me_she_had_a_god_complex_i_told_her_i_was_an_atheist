@@ -3,26 +3,31 @@ Feature:
   We need one password to rule them all
 
   Scenario: Set the master password
-    Given I respond "mah first pass" when prompted for "new master password"
+    Given the stdin content "mah first pass"
     When I run "atheist --set"
-    Then stdout includes "Your master password has been set"
+    Then stdout includes "your master password has been set"
     And the exit status is 0
 
   Scenario: Reset the master password
-    Given I respond "mah first pass" when prompted for "new master password"
+    Given the stdin content "mah first pass"
     When I run "atheist --set"
-    Then stdout includes "Your master password has been set"
-    Given I respond "mah first pass" when prompted for "old master password"
-    Given I respond "mah second pass" when prompted for "new master password"
+    Then stdout includes "your master password has been set"
+    Given the stdin content:
+    """
+    mah first pass
+    mah second pass
+    """
     When I run "atheist --set"
-    Then stdout includes "Your master password has been set"
+    Then stdout includes "enter your old passord: "
+    And stdout includes "your master password has been set"
     And the exit status is 0
 
   Scenario: Failing to reset the master password
-    Given I respond "mah first pass" when prompted for "new master password"
+    Given the stdin content "mah first pass"
     When I run "atheist --set"
-    Then stdout includes "Your master password has been set"
-    Given I respond "not mah first pass" when prompted for "old master password"
+    Then stdout includes "your master password has been set"
+    Given the stdin content "not mah first pass"
     When I run "atheist --set"
-    Then stdout includes "Incorrect master password"
+    Then stdout includes "enter your old passord: "
+    And stdout includes "Incorrect master password"
     And the exit status is 1
