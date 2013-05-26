@@ -58,7 +58,7 @@ Retrieve a password based on keywords
 
 List names we have passwords for
 
-    $ atheist --names
+    $ atheist --list
     Enter your master password: mahpass
 
 
