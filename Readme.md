@@ -21,6 +21,7 @@ Installation
 
     gem install she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist
 
+
 Usage
 -----
 
@@ -59,3 +60,23 @@ List names we have passwords for
 
     $ atheist --names
     Enter your master password: mahpass
+
+
+License
+-------
+
+           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+                       Version 2, December 2004
+
+    Copyright (C) 2013 Josh Cheek <josh.cheek@gmail.com>
+
+    Everyone is permitted to copy and distribute verbatim or modified
+    copies of this license document, and changing it is allowed as long
+    as the name is changed.
+
+               DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+      TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+      0. You just DO WHAT THE FUCK YOU WANT TO.
+
+
