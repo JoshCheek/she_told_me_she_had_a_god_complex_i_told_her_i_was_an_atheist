@@ -23,7 +23,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
             io.success "your master password has been set"
             0
           else
-            $stderr.puts "Incorrect master password" # should delegate to io.failure
+            io.failure "Incorrect master password"
             1
           end
         else

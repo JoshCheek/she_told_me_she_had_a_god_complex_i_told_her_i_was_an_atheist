@@ -9,5 +9,5 @@ require 'encryptor'
 require 'json'
 
 
-io = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::HighlineIO.new
+io = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::HighlineIO.new $stdin, $stdout, $stderr
 exit SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::CLI.new(io, ARGV, ENV).call
