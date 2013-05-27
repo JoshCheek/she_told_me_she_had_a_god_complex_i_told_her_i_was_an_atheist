@@ -1,8 +1,8 @@
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/encrypt'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/decrypt'
-require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/cli/set_password'
-require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/cli/reset_password'
+require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/cli/set_master_password'
+require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/cli/reset_master_password'
 
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class CLI
@@ -13,9 +13,9 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
                                     "#{env['HOME']}/.she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist"
       if argv.include? '--set'
         if File.exist? password_filename
-          ResetPassword.call io, password_filename
+          ResetMasterPassword.call io, password_filename
         else
-          SetPassword.call io, password_filename
+          SetMasterPassword.call io, password_filename
         end
       elsif argv.include? '--add'
         # master_password = io.password 'enter your master password: '

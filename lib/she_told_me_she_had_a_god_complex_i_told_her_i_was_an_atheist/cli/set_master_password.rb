@@ -1,5 +1,5 @@
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
-  class SetPassword
+  class SetMasterPassword
     Callable.call self, :io, :password_filename
 
     def call
