@@ -38,7 +38,8 @@ Store a new password for gmail.com
     $ atheist --add
     enter your master password: mahpass
     what is this a password for? gmail.com
-    enter a search string: email mail gmail google
+    enter search words: email mail gmail google
+    enter the password for gmail.com: elivSZOK75b5ZFjD5fTi
     Your password for "gmail.com" is now being stored
 
 Retrieve a password for gmail.com
@@ -47,10 +48,10 @@ Retrieve a password for gmail.com
     enter your master password: mahpass
     Your password for "google.com" has been saved to your clipboard
 
-Retrieve a password based on keywords
+Retrieve a password based on search words
 
     $ atheist mail
-    Ambiguous passwords, please add more filters (these will match against your search string)
+    Ambiguous passwords, please add more search words
 
     $ atheist mail google
     enter your master password: mahpass
@@ -61,6 +62,11 @@ List names we have passwords for
     $ atheist --list
     Enter your master password: mahpass
 
+Cool features I'll probably never add
+-------------------------------------
+
+* Set a time limit with which the master password is not needed (uhm, I think this means keep a process running in the bg that has the unencrypted file loaded, then always check for like a pid or something to talk to it and ask it for the password.)
+* Generate passwords given constraints
 
 License
 -------
