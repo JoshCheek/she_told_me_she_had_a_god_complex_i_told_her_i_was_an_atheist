@@ -1,1 +1,3 @@
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/callable'
+require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/encrypt'
+require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/decrypt'

@@ -1,4 +1,5 @@
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
+  # these should be in the CLI namespace
   class ResetMasterPassword
     Callable.call self, :io, :password_filename
 

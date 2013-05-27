@@ -1,5 +1,6 @@
 require 'highline'
 
+# move this into CLI namespace
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class HighlineIO
     def initialize(stdin, stdout, stderr)
@@ -10,6 +11,10 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
     def password(prompt)
       stdin.ask(prompt) { |q| q.echo = false }
+    end
+
+    def ask(prompt)
+      stdin.ask prompt
     end
 
     def success(message)

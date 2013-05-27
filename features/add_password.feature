@@ -15,15 +15,11 @@ Feature: Add a password
     elivSZOK75b5ZFjD5fTi
     """
     When I run "atheist --add"
-    # the {{' '}} is b/c vim will automatically strip trailing whitespace
-    Then stdout is:
-    """
-    enter your master password:{{' '}}
-    what is this a password for?{{' '}}
-    enter search words:{{' '}}
-    enter the password for gmail.com:{{' '}}
-    Your password for "gmail.com" is now being stored
-    """
+    Then stdout includes "enter your master password: "
+    And  stdout includes "what is this a password for? "
+    And  stdout includes "enter search words: "
+    And  stdout includes "enter the password for gmail.com: "
+    And  stdout includes "your password for 'gmail.com' is now being stored"
     And the exit status is 0
     And my a password file contains
     | name      | password             | search words            |
