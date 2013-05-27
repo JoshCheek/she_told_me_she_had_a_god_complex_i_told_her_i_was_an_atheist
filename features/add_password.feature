@@ -1,8 +1,8 @@
+@wip
 Feature: Add a password
 
   To store passwords, we need to be able to add them to the password file
 
-  @wip
   Scenario: Add the password
     Given a password file with
     | name    | password | search words |
@@ -32,15 +32,15 @@ Feature: Add a password
     | my bank | abc123   | banking      |
     Given the stdin content "wrong master password"
     When I run "atheist --add"
-    Then stdout is:
-    """
-    enter your master password:{{' '}}
-    incorrect master password
-    """
+    Then stdout includes "enter your master password: "
+    # And  stdout does not include "what is this a password for? " # need to add this to haiti
+    And  stderr includes "incorrect master password"
+    And the exit status is 1
     And my a password file contains
-    | name      | password             | search words            |
-    | my bank   | abc123               | banking                 |
+    | name    | password | search words |
+    | my bank | abc123   | banking      |
 
   Scenario: Invalid name
   Scenario: Duplicate name
   Scenario: No master password set
+  Scenario: No existing password file
