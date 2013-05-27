@@ -1,6 +1,6 @@
-Feature:
-  In order to store our passwords
-  We need one password to rule them all
+Feature: Set the master password
+
+  To store our passwords, we need one password to rule them all
 
   Scenario: Set the master password
     Given the stdin content "mah first pass"
@@ -22,6 +22,7 @@ Feature:
     And stdout includes "your master password has been set"
     And the exit status is 0
 
+  # later on, switch this over to use "Given a master password file" and "Then my passwords are all still the same"
   Scenario: Failing to reset the master password
     Given the stdin content "mah first pass"
     When I run "atheist --set"
