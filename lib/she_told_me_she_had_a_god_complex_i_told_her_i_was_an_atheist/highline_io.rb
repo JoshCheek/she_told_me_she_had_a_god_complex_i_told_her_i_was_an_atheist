@@ -7,7 +7,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
     end
 
     def password(prompt)
-      @password ||= highline.ask prompt
+      highline.ask(prompt) { |q| q.echo = false }
     end
 
     def success(message)

@@ -29,5 +29,5 @@ Feature:
     Given the stdin content "not mah first pass"
     When I run "atheist --set"
     Then stdout includes "enter your old passord: "
-    And stdout includes "Incorrect master password"
+    And stderr includes "Incorrect master password"
     And the exit status is 1
