@@ -3,14 +3,7 @@ require 'encryptor'
 
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class Encrypt
-    def self.call(*args)
-      new(*args).call
-    end
-    attr_accessor :unencrypted_passwords, :master_password
-    def initialize(unencrypted_passwords, master_password)
-      self.unencrypted_passwords = unencrypted_passwords
-      self.master_password       = master_password
-    end
+    Callable.call self, :unencrypted_passwords, :master_password
 
     def call
       Encryptor.encrypt json_passwords,

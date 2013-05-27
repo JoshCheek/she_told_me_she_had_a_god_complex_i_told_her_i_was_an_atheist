@@ -1,3 +1,4 @@
+require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/encrypt'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/decrypt'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/cli/set_password'
@@ -5,11 +6,7 @@ require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/cli/reset
 
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class CLI
-    def initialize(io, argv, env)
-      self.io   = io
-      self.argv = argv
-      self.env  = env
-    end
+    Callable.call self, :io, :argv, :env
 
     def call
       password_filename = env.fetch "she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist",
@@ -36,9 +33,5 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         raise "Don't know what to do with ARGV: #{ARGV.inspect}"
       end
     end
-
-    private
-
-    attr_accessor :io, :argv, :env
   end
 end

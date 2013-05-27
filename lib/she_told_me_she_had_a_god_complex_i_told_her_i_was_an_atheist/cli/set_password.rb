@@ -1,15 +1,6 @@
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class SetPassword
-    attr_accessor :io, :password_filename
-
-    def self.call(io, password_filename)
-      new(io, password_filename).call
-    end
-
-    def initialize(io, password_filename)
-      self.io                = io
-      self.password_filename = password_filename
-    end
+    Callable.call self, :io, :password_filename
 
     def call
       master_password     = io.password 'enter your master password: '
