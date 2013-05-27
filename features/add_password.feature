@@ -1,10 +1,12 @@
-@wip
 Feature: Add a password
 
   To store passwords, we need to be able to add them to the password file
 
+  @wip
   Scenario: Add the password
-    Given a master password file
+    Given a password file with
+    | name    | password | search words |
+    | my bank | abc123   | banking      |
     Given the stdin content:
     """
     {{master_password}}
@@ -23,10 +25,15 @@ Feature: Add a password
     Your password for "gmail.com" is now being stored
     """
     And the exit status is 0
-    And my password for "gmail.com" is "elivSZOK75b5ZFjD5fTi"
-    And my old passwords are all still the same
+    And my a password file contains
+    | name      | password             | search words            |
+    | my bank   | abc123               | banking                 |
+    | gmail.com | elivSZOK75b5ZFjD5fTi | email mail gmail google |
 
   Scenario: Incorrect master password
+    Given a password file with
+    | name    | password | search words |
+    | my bank | abc123   | banking      |
     Given the stdin content "wrong master password"
     When I run "atheist --add"
     Then stdout is:
@@ -34,7 +41,10 @@ Feature: Add a password
     enter your master password:{{' '}}
     incorrect master password
     """
-    And my old passwords are all still the same
+    And my a password file contains
+    | name      | password             | search words            |
+    | my bank   | abc123               | banking                 |
 
   Scenario: Invalid name
   Scenario: Duplicate name
+  Scenario: No master password set

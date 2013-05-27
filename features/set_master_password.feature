@@ -22,7 +22,7 @@ Feature: Set the master password
     And stdout includes "your master password has been set"
     And the exit status is 0
 
-  # later on, switch this over to use "Given a master password file" and "Then my passwords are all still the same"
+  # later on, switch this over to use "Given a password file with"
   Scenario: Failing to reset the master password
     Given the stdin content "mah first pass"
     When I run "atheist --set"
