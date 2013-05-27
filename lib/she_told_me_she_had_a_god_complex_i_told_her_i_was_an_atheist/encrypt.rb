@@ -1,3 +1,6 @@
+require 'json'
+require 'encryptor'
+
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class Encrypt
     def self.call(*args)
@@ -10,8 +13,14 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
     end
 
     def call
-      Encryptor.encrypt unencrypted_passwords,
+      Encryptor.encrypt json_passwords,
         key: Digest::SHA256.hexdigest(master_password)
+    end
+
+    private
+
+    def json_passwords
+      JSON.dump unencrypted_passwords
     end
   end
 end

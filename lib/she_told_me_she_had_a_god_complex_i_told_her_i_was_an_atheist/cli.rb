@@ -27,11 +27,10 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
             1
           end
         else
-          password       = io.password 'enter your master password: '
-          password_data  = { 'passwords' => {} }
-          secret_key     = Digest::SHA256.hexdigest password
-          encrypted_file = Encryptor.encrypt password_data.to_json, key: secret_key
-          File.open(password_filename, 'w') { |f| f.write encrypted_file }
+          master_password     = io.password 'enter your master password: '
+          password_data       = { 'passwords' => {} } # eventually make this a class
+          encrypted_passwords = Encrypt.call password_data, master_password
+          File.open(password_filename, 'w') { |f| f.write encrypted_passwords }
           io.success "your master password has been set"
           0
         end
