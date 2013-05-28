@@ -100,7 +100,6 @@ Feature: Add a password
     | name    | password | search words |
     | my bank | abc123   | banking      |
 
-  @wip
   Scenario: Intentional duplicate name
     Given a password file with
     | name    | password | search words |

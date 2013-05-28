@@ -1,4 +1,5 @@
 $LOAD_PATH.unshift '../../../lib', __FILE__
+require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/passwords'
 
 # load/configure haiti
 require 'haiti'
@@ -36,24 +37,20 @@ Then 'there is no password file' do
 end
 
 Given 'a password file with' do |table|
-  passwords = {'passwords' => {}}
-  table.hashes.each do |hash|
-    passwords['passwords'][hash['name']] = {
-      'password'     => hash['password'],
-      'search_words' => hash['search words'],
-    }
+  passwords = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::Passwords.new do |p|
+    table.hashes.each do |hash|
+      p.add hash['name'], 'password' => hash['password'], 'search_words' => hash['search words']
+    end
   end
   encrypted = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::Encrypt.call passwords, master_password
   File.open(password_filename, 'w') { |f| f.write encrypted }
 end
 
 Then 'my a password file contains' do |table|
-  expected_passwords = {'passwords' => {}}
-  table.hashes.each do |hash|
-    expected_passwords['passwords'][hash['name']] = {
-      'password'     => hash['password'],
-      'search_words' => hash['search words'],
-    }
+  expected_passwords = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::Passwords.new do |p|
+    table.hashes.each do |hash|
+      p.add hash['name'], 'password' => hash['password'], 'search_words' => hash['search words']
+    end
   end
   actual_passwords = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::Decrypt.call File.read(password_filename), master_password
   actual_passwords.should == expected_passwords

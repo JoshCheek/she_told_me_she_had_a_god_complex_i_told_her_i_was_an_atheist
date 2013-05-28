@@ -5,7 +5,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
       def call
         master_password     = io.password 'enter your master password: '
-        password_data       = { 'passwords' => {} } # eventually make this a class
+        password_data       = Passwords.new
         encrypted_passwords = Encrypt.call password_data, master_password
         File.open(password_filename, 'w') { |f| f.write encrypted_passwords }
         io.success "your master password has been set"

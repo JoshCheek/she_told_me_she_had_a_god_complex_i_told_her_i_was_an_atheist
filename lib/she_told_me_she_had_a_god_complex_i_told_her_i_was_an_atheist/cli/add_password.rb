@@ -27,7 +27,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         end
 
         # user must confirm override if name already exists
-        if passwords['passwords'][name]
+        if passwords[name]
           confirmed = io.boolean "#{name.inspect} is already being stored, override it? (y/N)",
             true: /^y/i,
             false: /^n/i,
@@ -38,7 +38,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         search_words = io.ask "enter search words: "
         password     = io.password "enter the password for #{name}: "
 
-        passwords['passwords'][name] = {'password' => password, 'search_words' => search_words}
+        passwords.add name, 'password' => password, 'search_words' => search_words
         encrypted_file = Encrypt.call passwords, master_password
         File.open(password_filename, 'w') { |f| f.write encrypted_file }
 
