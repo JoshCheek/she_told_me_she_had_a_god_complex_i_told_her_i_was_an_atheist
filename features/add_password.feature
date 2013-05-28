@@ -41,6 +41,25 @@ Feature: Add a password
     | my bank | abc123   | banking      |
 
   Scenario: Invalid name
+    Given a password file with
+    | name    | password | search words |
+    | my bank | abc123   | banking      |
+    Given the stdin content:
+    """
+    {{master_password}}
+
+
+    """
+    When I run "atheist --add"
+    Then stdout includes "enter your master password: "
+    And  stdout includes "what is this a password for? "
+    # And  stdout does not include "enter search words: "
+    And  stderr includes "invalid name"
+    And the exit status is 1
+    And my a password file contains
+    | name      | password             | search words            |
+    | my bank   | abc123               | banking                 |
+
   Scenario: Duplicate name
   Scenario: No master password set
   Scenario: No existing password file
