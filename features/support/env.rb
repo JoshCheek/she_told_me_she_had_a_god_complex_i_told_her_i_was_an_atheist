@@ -43,7 +43,6 @@ Given 'a password file with' do |table|
       'search_words' => hash['search words'],
     }
   end
-  puts "PASSWORDS: #{passwords.inspect}"
   encrypted = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::Encrypt.call passwords, master_password
   File.open(password_filename, 'w') { |f| f.write encrypted }
 end

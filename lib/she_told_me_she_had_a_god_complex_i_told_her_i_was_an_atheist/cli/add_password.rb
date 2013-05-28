@@ -27,6 +27,15 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         return 1
       end
 
+      # user must confirm override if name already exists
+      if passwords['passwords'][name]
+        confirmed = io.boolean "#{name.inspect} is already being stored, override it? (y/N)",
+          true: /^y/i,
+          false: /^n/i,
+          default: false
+        return 0 unless confirmed
+      end
+
       search_words = io.ask "enter search words: "
       password     = io.password "enter the password for #{name}: "
 

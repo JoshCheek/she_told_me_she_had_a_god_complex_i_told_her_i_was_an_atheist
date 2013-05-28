@@ -59,9 +59,7 @@ Feature: Add a password
     | name    | password | search words |
     | my bank | abc123   | banking      |
 
-  # just not sure yet what I want for this one, ask Rick what he thinks is best
-  @not-implemented
-  Scenario: Duplicate name
+  Scenario: Unintentional duplicate name
     Given a password file with
     | name    | password | search words |
     | my bank | abc123   | banking      |
@@ -69,16 +67,63 @@ Feature: Add a password
     """
     {{master_password}}
     my bank
+    n
     """
     When I run "atheist --add"
     Then stdout includes "enter your master password: "
     And  stdout includes "what is this a password for? "
+    # And  stdout includes '"my bank" is already being stored, override it? (y/N) "
     # And  stdout does not include "enter search words: "
-    And  stderr includes "invalid name"
-    And the exit status is 1
+    And the exit status is 0
     And my a password file contains
     | name    | password | search words |
     | my bank | abc123   | banking      |
+
+  Scenario: Unintentional duplicate name
+    Given a password file with
+    | name    | password | search words |
+    | my bank | abc123   | banking      |
+    Given the stdin content:
+    """
+    {{master_password}}
+    my bank
+
+
+    """
+    When I run "atheist --add"
+    Then stdout includes "enter your master password: "
+    And  stdout includes "what is this a password for? "
+    # And  stdout includes '"my bank" is already being stored, override it? (y/N) "
+    # And  stdout does not include "enter search words: "
+    And the exit status is 0
+    And my a password file contains
+    | name    | password | search words |
+    | my bank | abc123   | banking      |
+
+  @wip
+  Scenario: Intentional duplicate name
+    Given a password file with
+    | name    | password | search words |
+    | my bank | abc123   | banking      |
+    Given the stdin content:
+    """
+    {{master_password}}
+    my bank
+    y
+    money loans credit cards
+    new password
+    """
+    When I run "atheist --add"
+    Then stdout includes "enter your master password: "
+    # And  stdout includes '"my bank" is already being stored, override it? (y/N) "
+    And  stdout includes "what is this a password for? "
+    And  stdout includes "enter search words: "
+    And  stdout includes "enter the password for my bank: "
+    And  stdout includes "your password for 'my bank' is now being stored"
+    And the exit status is 0
+    And my a password file contains
+    | name      | password             | search words             |
+    | my bank   | new password         | money loans credit cards |
 
   Scenario: No master password set
     Given I delete my password file
