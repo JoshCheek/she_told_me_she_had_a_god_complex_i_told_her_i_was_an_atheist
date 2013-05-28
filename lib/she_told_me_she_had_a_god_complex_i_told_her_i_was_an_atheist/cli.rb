@@ -2,6 +2,7 @@ require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/cli/set_master_password'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/cli/reset_master_password'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/cli/add_password'
+require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/cli/high_line_io'
 
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class CLI

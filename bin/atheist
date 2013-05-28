@@ -3,11 +3,10 @@
 $LOAD_PATH.unshift File.expand_path '../../lib', __FILE__
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/cli'
-require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/highline_io'
 
 require 'encryptor'
 require 'json'
 
 
-io = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::HighlineIO.new $stdin, $stdout, $stderr
+io = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::CLI::HighLineIO.new $stdin, $stdout, $stderr
 exit SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::CLI.new(io, ARGV, ENV).call
