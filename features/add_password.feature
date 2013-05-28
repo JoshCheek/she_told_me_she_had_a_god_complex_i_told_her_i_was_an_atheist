@@ -1,4 +1,3 @@
-@wip
 Feature: Add a password
 
   To store passwords, we need to be able to add them to the password file
@@ -57,9 +56,37 @@ Feature: Add a password
     And  stderr includes "invalid name"
     And the exit status is 1
     And my a password file contains
-    | name      | password             | search words            |
-    | my bank   | abc123               | banking                 |
+    | name    | password | search words |
+    | my bank | abc123   | banking      |
 
+  # just not sure yet what I want for this one, ask Rick what he thinks is best
+  @not-implemented
   Scenario: Duplicate name
+    Given a password file with
+    | name    | password | search words |
+    | my bank | abc123   | banking      |
+    Given the stdin content:
+    """
+    {{master_password}}
+    my bank
+    """
+    When I run "atheist --add"
+    Then stdout includes "enter your master password: "
+    And  stdout includes "what is this a password for? "
+    # And  stdout does not include "enter search words: "
+    And  stderr includes "invalid name"
+    And the exit status is 1
+    And my a password file contains
+    | name    | password | search words |
+    | my bank | abc123   | banking      |
+
+  @wip
   Scenario: No master password set
+    Given I delete my password file
+    When I run "atheist --add"
+    Then stderr includes "there is no password file at {{password_filename.inspect}}, first set the master password"
+    # Then stdout does not include "enter your master password: "
+    And the exit status is 1
+    And there is no password file
+
   Scenario: No existing password file

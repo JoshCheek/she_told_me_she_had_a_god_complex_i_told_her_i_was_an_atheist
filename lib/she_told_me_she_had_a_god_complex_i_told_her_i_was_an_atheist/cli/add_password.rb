@@ -5,6 +5,14 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
     # need to handle the case where there is not an existing password file
     def call
+
+      # password file must exist
+      if !File.exist?(password_filename)
+        io.failure "there is no password file at #{password_filename.inspect}, first set the master password"
+        return 1
+      end
+
+      # master password must be correct
       master_password = io.password 'enter your master password: '
       passwords = Decrypt.call File.read(password_filename), master_password
       if !passwords
@@ -12,6 +20,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         return 1
       end
 
+      # name must be valid
       name = io.ask "what is this a password for? "
       if name.to_s.empty?
         io.failure "invalid name"

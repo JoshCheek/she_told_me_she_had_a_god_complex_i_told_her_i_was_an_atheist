@@ -8,7 +8,9 @@ Haiti.configure do |config|
 end
 
 # set env var so lib doesn't overwrite global data or w/e
-password_filename = File.join Haiti.config.proving_grounds_dir, 'password_file'
+def password_filename
+  File.join Haiti.config.proving_grounds_dir, 'password_file'
+end
 ENV['she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist'] = password_filename
 
 # delete the password file if it exists, so each test starts clean
@@ -20,7 +22,19 @@ def master_password
   "THE MASTER PASSWORD"
 end
 
+
+
+
 # some step defs that should eventually be moved out
+
+Given 'I delete my password file' do
+  File.delete password_filename if File.exist? password_filename
+end
+
+Then 'there is no password file' do
+  File.exist?(password_filename).should be_false
+end
+
 Given 'a password file with' do |table|
   passwords = {'passwords' => {}}
   table.hashes.each do |hash|
