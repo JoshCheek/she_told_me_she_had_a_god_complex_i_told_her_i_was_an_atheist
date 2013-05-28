@@ -8,7 +8,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
       # password file must exist
       if !File.exist?(password_filename)
-        io.failure "there is no password file at #{password_filename.inspect}, first set the master password"
+        io.failure "there is no password file at #{password_filename.inspect}, to create it, set the master password"
         return 1
       end
 

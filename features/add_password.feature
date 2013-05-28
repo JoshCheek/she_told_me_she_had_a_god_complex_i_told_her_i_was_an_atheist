@@ -80,13 +80,10 @@ Feature: Add a password
     | name    | password | search words |
     | my bank | abc123   | banking      |
 
-  @wip
   Scenario: No master password set
     Given I delete my password file
     When I run "atheist --add"
-    Then stderr includes "there is no password file at {{password_filename.inspect}}, first set the master password"
+    Then stderr includes "there is no password file at {{password_filename.inspect}}, to create it, set the master password"
     # Then stdout does not include "enter your master password: "
     And the exit status is 1
     And there is no password file
-
-  Scenario: No existing password file

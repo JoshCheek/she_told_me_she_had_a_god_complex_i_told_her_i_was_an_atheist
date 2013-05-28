@@ -2,12 +2,14 @@ Feature: Set the master password
 
   To store our passwords, we need one password to rule them all
 
+  # should probably confirm
   Scenario: Set the master password
     Given the stdin content "mah first pass"
     When I run "atheist --set"
     Then stdout includes "your master password has been set"
     And the exit status is 0
 
+  # should probably confirm
   Scenario: Reset the master password
     Given the stdin content "mah first pass"
     When I run "atheist --set"
