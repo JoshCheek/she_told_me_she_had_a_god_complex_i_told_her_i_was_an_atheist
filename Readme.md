@@ -65,6 +65,8 @@ List names we have passwords for
 Cool features I'll probably never add
 -------------------------------------
 
+* When overriding, state old values above prompt for new
+* Confirm passwords
 * Set a time limit with which the master password is not needed (uhm, I think this means keep a process running in the bg that has the unencrypted file loaded, then always check for like a pid or something to talk to it and ask it for the password.)
 * Generate passwords given constraints
 
