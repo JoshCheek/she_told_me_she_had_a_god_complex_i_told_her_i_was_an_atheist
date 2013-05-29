@@ -1,5 +1,5 @@
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
-  class CLI
+  class CommandLineBinary
     class AddPassword
       Callable.call self, :io, :password_filename
 

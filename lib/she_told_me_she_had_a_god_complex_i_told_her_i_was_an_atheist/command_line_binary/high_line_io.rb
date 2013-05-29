@@ -3,7 +3,7 @@ require 'highline'
 # move this into CLI namespace
 # rename to HighLineIO
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
-  class CLI
+  class CommandLineBinary
     class HighLineIO
       def initialize(stdin, stdout, stderr)
         self.stdin  = HighLine.new stdin, stdout
