@@ -1,7 +1,5 @@
 require 'highline'
 
-# move this into CLI namespace
-# rename to HighLineIO
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class CommandLineBinary
     class HighLineIO

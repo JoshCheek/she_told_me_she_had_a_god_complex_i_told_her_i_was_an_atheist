@@ -1,6 +1,5 @@
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/command_line_binary/interface'
-require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/command_line_binary/get_password'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/command_line_binary/high_line_io'
 
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
@@ -13,9 +12,9 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       elsif argv == ['--set']
         use_case(SetMasterPassword) { "your master password has been set" }
       elsif argv == ['--add']
-        use_case(AddPassword) { |interface| "your password for '#{interface.name}' is now being stored" }
+        use_case(AddPassword) { |interface| "your password for '#{interface.name}' is now being stored" } # uhm, use name.inspect once we fix haiti up a bit
       else
-        GetPassword.call io, password_filename
+        use_case(GetPassword) { |interface| "'#{interface.name}' was copied to your clipboard" } # uhm, use name.inspect once we fix haiti up a bit
       end
     end
 
