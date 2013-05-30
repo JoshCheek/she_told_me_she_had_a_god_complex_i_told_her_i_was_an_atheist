@@ -55,3 +55,10 @@ Then 'my a password file contains' do |table|
   actual_passwords = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::Decrypt.call File.read(password_filename), master_password
   actual_passwords.should == expected_passwords
 end
+
+And '"$text" was copied to my clipboard' do |text|
+  pb = Pasteboard.new
+  pb.sync
+  pb.get_item_count.should == 1
+  pb.first(Pasteboard::Type::UTF_8).should == text
+end
