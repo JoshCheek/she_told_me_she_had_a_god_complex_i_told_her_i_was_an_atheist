@@ -60,6 +60,13 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         passwords['the name'].password.should == 'the password'
         passwords['the name'].search_words.should == 'the search words'
       end
+
+      it 'returns the added password' do
+        password = passwords.add 'the name', 'password' => 'the password', 'search_words' => 'the search words'
+        password.name.should == 'the name'
+        password.password.should == 'the password'
+        password.search_words.should == 'the search words'
+      end
     end
 
     describe 'enumerables' do
