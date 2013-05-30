@@ -8,13 +8,13 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
     def call
       if argv == ['--set'] && File.exist?(password_filename)
-        use_case(ResetMasterPassword) { "your master password has been set" }
+        use_case(ResetMasterPassword) { io.success "your master password has been set" }
       elsif argv == ['--set']
-        use_case(SetMasterPassword) { "your master password has been set" }
+        use_case(SetMasterPassword) { io.success "your master password has been set" }
       elsif argv == ['--add']
-        use_case(AddPassword) { |interface| "your password for '#{interface.name}' is now being stored" } # uhm, use name.inspect once we fix haiti up a bit
+        use_case(AddPassword) { |password| io.success "your password for '#{password.name}' is now being stored" } # uhm, use name.inspect once we fix haiti up a bit
       else
-        use_case(GetPassword) { |interface| "'#{interface.name}' was copied to your clipboard" } # uhm, use name.inspect once we fix haiti up a bit
+        use_case(GetPassword) { |password| io.success "'#{password.name}' was copied to your clipboard" } # uhm, use name.inspect once we fix haiti up a bit
       end
     end
 
@@ -28,8 +28,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
     end
 
     def use_case(use_case, &message)
-      interface = Interface.new(io, password_filename) { io.success message.call interface }
-      use_case.call interface
+      use_case.call Interface.new(argv, io, password_filename, &message)
     end
   end
 end

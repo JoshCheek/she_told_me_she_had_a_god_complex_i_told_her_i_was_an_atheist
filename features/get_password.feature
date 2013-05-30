@@ -5,12 +5,10 @@ Feature: Retrieve a password
 
   Background:
     Given a password file with
-    | name                     | password  | search words |
-    | bank                     | bank pass | banking      |
-    | mail                     | mail pass | email        |
-    | conflicting search words | whatev    | mail bank    |
+    | name     | password  | search words |
+    | my bank  | bank pass | banking      |
+    | my mail  | mail pass | email        |
 
-  @wip
   Scenario: No master password set
     Given I delete my password file
     When I run "atheist anything"
@@ -19,7 +17,6 @@ Feature: Retrieve a password
     And the exit status is 1
     And there is no password file
 
-  @wip
   Scenario: Incorrect master password
     Given the stdin content "wrong master password"
     When I run "atheist matches nothing"
@@ -27,8 +24,7 @@ Feature: Retrieve a password
     And  stderr includes "incorrect master password"
     And the exit status is 1
 
-  @wip
-  Scenario: entering the name of the password
+  Scenario: entering a phrase that matches
     Given the stdin content:
     """
     {{master_password}}
@@ -36,20 +32,8 @@ Feature: Retrieve a password
     """
     When I run "atheist bank"
     Then stdout includes "enter your master password: "
-    And  stdout includes "'bank' was copied to your clipboard"
+    And  stdout includes "'my bank' was copied to your clipboard"
     And  "bank pass" was copied to my clipboard
 
-  @not-implemented
-  Scenario: entering a search word for the password
-    Given the stdin content:
-    """
-    {{master_password}}
-    bank
-    """
-    When I run "atheist mail"
-    Then stdout includes "enter your master password: "
-    And  stdout includes "'bank' was copied to your clipboard"
-    And  "mail pass" was copied to my clipboard
-
-  Scenario: entering ambiguous search words (matches two passwords)
+  Scenario: multiple matches
   Scenario: entering a phrase that matches nothing

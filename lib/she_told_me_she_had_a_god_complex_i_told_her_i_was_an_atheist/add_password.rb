@@ -24,13 +24,13 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       search_words = interface.search_words name # could hypothetically fail here
       password     = interface.password     name # could hypothetically fail here
 
-      passwords.add name, 'password' => password, 'search_words' => search_words
+      added_password = passwords.add name, 'password' => password, 'search_words' => search_words
 
       encrypted_passwords = Encrypt.call passwords, master_password
 
       interface.persist_encrypted_passwords encrypted_passwords # could hypothetically fail here
 
-      interface.success
+      interface.success added_password
     end
   end
 end

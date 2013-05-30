@@ -2,12 +2,17 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class CommandLineBinary
 
     class Interface
-      attr_accessor :io, :password_filename, :exit_status, :success_callback
+      attr_accessor :argv, :io, :password_filename, :exit_status, :success_callback
 
-      def initialize(io, password_filename, &success_callback)
+      def initialize(argv, io, password_filename, &success_callback)
+        self.argv              = argv
         self.io                = io
         self.password_filename = password_filename
         self.success_callback  = success_callback
+      end
+
+      def words_searched_for
+        argv
       end
 
       def retrieve_encrypted_passwords
@@ -60,9 +65,9 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         File.open(password_filename, 'w') { |f| f.write encrypted_file }
       end
 
-      def success
+      def success(*args)
         self.exit_status = 0
-        success_callback.call
+        success_callback.call(*args)
         exit_status
       end
 

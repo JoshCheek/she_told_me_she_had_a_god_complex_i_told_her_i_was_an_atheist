@@ -14,10 +14,13 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       passwords       = Decrypt.call encrypted_passwords, master_password
       return interface.fail_cuz_your_master_password_is_wrong unless passwords
 
-      matching_password = passwords[interface.name]
+      matching_password = passwords.find do |pw|
+        interface.words_searched_for.all? { |search_word| pw.match? search_word }
+      end
+
       Pasteboard.new.put [[Pasteboard::Type::UTF_8, matching_password.password]]
 
-      interface.success
+      interface.success matching_password
     end
   end
 end
