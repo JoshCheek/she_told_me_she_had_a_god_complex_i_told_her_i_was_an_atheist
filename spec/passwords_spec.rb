@@ -70,4 +70,33 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       end
     end
   end
+
+  describe Passwords::Password do
+    describe 'match?' do
+      def will_match(name, search_words, query)
+        described_class.new(name, 'password', search_words).should be_match query
+      end
+
+      def will_not_match(name, search_words, query)
+        described_class.new(name, 'password', search_words).should_not be_match query
+      end
+
+      it 'returns true if the word is a substring of its search words or name' do
+        # search words
+        will_match '', 'abc def', 'abc'
+        will_match '', 'abc def', 'def'
+        will_match '', 'abc def', 'a'
+        will_match '', 'abc def', 'b'
+        will_match '', 'abc def', 'd'
+        will_match '', 'abc def', 'abc def'
+        will_not_match '', 'abc def', 'A'
+        will_not_match '', 'abc def', 'g'
+
+        # name
+        will_match 'abc def', '', 'abc'
+        will_not_match 'abc def', '', 'Abc'
+        will_not_match 'abc def', '', 'x'
+      end
+    end
+  end
 end

@@ -1,6 +1,10 @@
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class Passwords
-    Password = Struct.new :name, :password, :search_words
+    Password = Struct.new :name, :password, :search_words do
+      def match?(query)
+        name.include?(query) || search_words.include?(query)
+      end
+    end
 
     include Enumerable
 
