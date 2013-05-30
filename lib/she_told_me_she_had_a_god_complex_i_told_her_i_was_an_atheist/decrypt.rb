@@ -7,7 +7,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
     Callable.call self, :encrypted_passwords, :master_password
 
     def call
-      Passwords.from_primitive_data JSON.load Encryptor.decrypt encrypted_passwords, key: Digest::SHA256.hexdigest(master_password)
+      Passwords.from_primitive_data JSON.load Encryptor.decrypt encrypted_passwords, key: Digest::SHA256.hexdigest(master_password.to_s)
     rescue OpenSSL::OpenSSLError
     end
   end
