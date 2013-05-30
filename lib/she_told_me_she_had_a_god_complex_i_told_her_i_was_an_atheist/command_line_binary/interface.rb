@@ -1,8 +1,6 @@
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class CommandLineBinary
 
-    # rename "get_*", remove this prefix
-    # remove "file" from method names
     class Interface
       attr_accessor :io, :password_filename, :exit_status, :success_callback
 
@@ -12,11 +10,11 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         self.success_callback  = success_callback
       end
 
-      def retrieve_encrypted_file
+      def retrieve_encrypted_passwords
         return File.read password_filename if File.exist? password_filename
       end
 
-      def fail_cuz_you_need_a_password_file
+      def fail_cuz_you_have_no_encrypted_passwords
         io.failure "there is no password file at #{password_filename.inspect}, to create it, set the master password"
         self.exit_status = 1
       end
@@ -30,7 +28,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         self.exit_status = 1
       end
 
-      def get_name
+      def name
         @name ||= io.ask "what is this a password for? "
       end
 
@@ -40,7 +38,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       end
 
       def should_override_name?
-        @override_name ||= io.boolean "#{get_name.inspect} is already being stored, override it? (y/N)",
+        @override_name ||= io.boolean "#{name.inspect} is already being stored, override it? (y/N)",
             true: /^y/i,
             false: /^n/i,
             default: false
@@ -50,15 +48,15 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         self.exit_status = 0
       end
 
-      def get_search_words(name)
+      def search_words(name)
         @search_words ||= io.ask "enter search words: "
       end
 
-      def get_password(name)
+      def password(name)
         @password ||= io.password "enter the password for #{name}: "
       end
 
-      def persist_encrypted_file(encrypted_file)
+      def persist_encrypted_passwords(encrypted_file)
         File.open(password_filename, 'w') { |f| f.write encrypted_file }
       end
 

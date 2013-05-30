@@ -13,7 +13,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       elsif argv == ['--set']
         use_case(SetMasterPassword) { "your master password has been set" }
       elsif argv == ['--add']
-        use_case(AddPassword) { |interface| "your password for '#{interface.get_name}' is now being stored" }
+        use_case(AddPassword) { |interface| "your password for '#{interface.name}' is now being stored" }
       else
         GetPassword.call io, password_filename
       end
