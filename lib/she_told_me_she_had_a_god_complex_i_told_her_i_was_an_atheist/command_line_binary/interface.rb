@@ -1,5 +1,8 @@
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class CommandLineBinary
+
+    # rename "get_*", remove this prefix
+    # remove "file" from method names
     class Interface
       attr_accessor :io, :password_filename, :exit_status, :success_callback
 
@@ -66,11 +69,12 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       end
 
       def old_master_password
+        @old_master_password ||= io.password 'enter your old passord: '
       end
 
       def new_master_password
+        @new_master_password ||= io.password 'enter your new passord: '
       end
-
     end
   end
 end

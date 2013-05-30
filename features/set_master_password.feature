@@ -32,5 +32,5 @@ Feature: Set the master password
     Given the stdin content "not mah first pass"
     When I run "atheist --set"
     Then stdout includes "enter your old passord: "
-    And stderr includes "Incorrect master password"
+    And stderr includes "incorrect master password"
     And the exit status is 1
