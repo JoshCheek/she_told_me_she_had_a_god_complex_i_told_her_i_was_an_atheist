@@ -25,15 +25,16 @@ Feature: Retrieve a password
     And the exit status is 1
 
   Scenario: entering a phrase that matches
-    Given the stdin content:
-    """
-    {{master_password}}
-    bank
-    """
+    Given the stdin content "{{master_password}}"
     When I run "atheist bank"
-    Then stdout includes "enter your master password: "
     And  stdout includes "'my bank' was copied to your clipboard"
     And  "bank pass" was copied to my clipboard
+    And the exit status is 0
 
   Scenario: multiple matches
+    Given the stdin content "{{master_password}}"
+    When I run "atheist my"
+    And  stderr includes "'my' matched: 'my bank', 'my mail'"
+    And the exit status is 1
+
   Scenario: entering a phrase that matches nothing

@@ -58,7 +58,9 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       end
 
       def fail_cuz_your_search_matched_multiples(matched_passwords)
-        raise 'implement me'
+        names = matched_passwords.map(&:name).map { |name| "'#{name}'" }.join(', ') # omg, just go add single/double quoted strings to haiti -.-
+        io.failure "'#{words_searched_for.join(' ')}' matched: #{names}"
+        self.exit_status = 1
       end
 
       def fail_cuz_your_search_has_no_matches
