@@ -64,7 +64,8 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       end
 
       def fail_cuz_your_search_has_no_matches
-        raise 'implement me'
+        io.failure "'#{words_searched_for.join(' ')}' matched nothing"
+        self.exit_status = 1
       end
 
       def password(name)

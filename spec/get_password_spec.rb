@@ -5,6 +5,22 @@ require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist'
 
 describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::GetPassword do
 
+  # perhaps these should be some rspec-wide helpers?
+  let(:master_pass) { 'MASTER PASS!' }
+
+  def has_passwords(*password_datas)
+    passwords = atheist::Passwords.new
+    password_datas.each { |data| passwords.add *data }
+    interface.will_retrieve_encrypted_passwords atheist::Encrypt.call passwords, master_pass
+    interface.will_have_master_password master_pass
+    passwords
+  end
+
+  def password_data(name, search_words)
+    [name, {'password' => 'irrelevant', 'search_words' => search_words}]
+  end
+
+
   # move me somewhere bettah, and give it a bettah name
   specify 'interfaces match' do
     require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/command_line_binary/interface'
@@ -35,20 +51,6 @@ describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::GetPassword do
   end
 
   describe 'finding the password to get' do
-    let(:master_pass) { 'MASTER PASS!' }
-
-    def has_passwords(*password_datas)
-      passwords = atheist::Passwords.new
-      password_datas.each { |data| passwords.add *data }
-      interface.will_retrieve_encrypted_passwords atheist::Encrypt.call passwords, master_pass
-      interface.will_have_master_password master_pass
-      passwords
-    end
-
-    def password_data(name, search_words)
-      [name, {'password' => 'irrelevant', 'search_words' => search_words}]
-    end
-
     it 'finds the password if there is only one name that matches' do
       passwords = has_passwords password_data('pass match', 'search1'), password_data('pass2', 'search2')
       interface.will_have_words_searched_for ['pass', 'match']
@@ -94,12 +96,17 @@ describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::GetPassword do
     end
 
     it 'fails if there are neither matching names, nor matching search terms' do
-      passwords = has_passwords password_data('pass1', 'search1'), password_data('pass2', 'search2'), password_data('pass3', 'search3')
+      has_passwords password_data('pass1', 'search1'), password_data('pass2', 'search2'), password_data('pass3', 'search3')
       interface.will_have_words_searched_for ['match']
       call.should == :fail_cuz_your_search_has_no_matches
       interface.was told_to(:fail_cuz_your_search_has_no_matches)
     end
   end
 
-  it 'returns the success result when it succeeds'
+  it 'returns the success result when it succeeds' do
+    has_passwords password_data('match', 'match')
+    interface.will_have_words_searched_for ['match']
+    call
+    interface.was told_to(:success)
+  end
 end

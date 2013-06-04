@@ -38,3 +38,7 @@ Feature: Retrieve a password
     And the exit status is 1
 
   Scenario: entering a phrase that matches nothing
+    Given the stdin content "{{master_password}}"
+    When I run "atheist I MATCH THE NOTHING"
+    And  stderr includes "'I MATCH THE NOTHING' matched nothing"
+    And the exit status is 1
