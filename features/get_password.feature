@@ -19,7 +19,7 @@ Feature: Retrieve a password
 
   Scenario: Incorrect master password
     Given the stdin content "wrong master password"
-    When I run "atheist matches nothing"
+    When I run "atheist anything"
     Then stdout includes "enter your master password: "
     And  stderr includes "incorrect master password"
     And the exit status is 1

@@ -57,6 +57,14 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         @search_words ||= io.ask "enter search words: "
       end
 
+      def fail_cuz_your_search_matched_multiples(matched_passwords)
+        raise 'implement me'
+      end
+
+      def fail_cuz_your_search_has_no_matches
+        raise 'implement me'
+      end
+
       def password(name)
         @password ||= io.password "enter the password for #{name}: "
       end
