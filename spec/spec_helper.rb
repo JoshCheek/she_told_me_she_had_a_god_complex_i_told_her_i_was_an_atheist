@@ -11,7 +11,7 @@ module Interfaces
     define(:master_password)              { _master_password }
     define(:name)                         { 'name' }
     define(:should_override_name?)        { true }
-    define(:search_words)                 { |name| 'search words' }
+    define(:search_string)                { |name| 'search string' }
     define(:password)                     { |name| 'password' }
     define(:persist_encrypted_passwords)  { |encrypted_file| }
     # rename success -> succeed

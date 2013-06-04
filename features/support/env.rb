@@ -39,7 +39,7 @@ end
 Given 'a password file with' do |table|
   passwords = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::Passwords.new do |p|
     table.hashes.each do |hash|
-      p.add hash['name'], 'password' => hash['password'], 'search_words' => hash['search words']
+      p.add hash['name'], 'password' => hash['password'], 'search_string' => hash['search words']
     end
   end
   encrypted = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::Encrypt.call passwords, master_password
@@ -49,7 +49,7 @@ end
 Then 'my a password file contains' do |table|
   expected_passwords = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::Passwords.new do |p|
     table.hashes.each do |hash|
-      p.add hash['name'], 'password' => hash['password'], 'search_words' => hash['search words']
+      p.add hash['name'], 'password' => hash['password'], 'search_string' => hash['search words']
     end
   end
   actual_passwords = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::Decrypt.call File.read(password_filename), master_password

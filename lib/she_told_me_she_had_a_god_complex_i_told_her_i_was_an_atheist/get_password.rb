@@ -22,15 +22,15 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         return interface.fail_cuz_your_search_matched_multiples matching_password_by_names
       end
 
-      # if no matching name, must have exactly 1 that matches search words or name
+      # if no matching name, must have exactly 1 that matches search string or name
       matching_password = matching_password_by_names.first || begin
-        matching_password_by_search_words = passwords.select do |pw|
+        matching_password_by_search_string = passwords.select do |pw|
           interface.words_searched_for.all? { |search_word| pw.match? search_word }
         end
-        if matching_password_by_search_words.size > 1
-          return interface.fail_cuz_your_search_matched_multiples matching_password_by_search_words
+        if matching_password_by_search_string.size > 1
+          return interface.fail_cuz_your_search_matched_multiples matching_password_by_search_string
         end
-        matching_password_by_search_words.first
+        matching_password_by_search_string.first
       end
 
       # must have found a match

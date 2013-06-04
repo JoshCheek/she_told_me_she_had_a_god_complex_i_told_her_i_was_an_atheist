@@ -53,8 +53,8 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         self.exit_status = 0
       end
 
-      def search_words(name)
-        @search_words ||= io.ask "enter search words: "
+      def search_string(name)
+        @search_string ||= io.ask "enter search words: " # to the user, we present them as search words
       end
 
       def fail_cuz_your_search_matched_multiples(matched_passwords)

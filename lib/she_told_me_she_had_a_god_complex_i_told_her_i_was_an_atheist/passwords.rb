@@ -1,9 +1,8 @@
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class Passwords
-    # rename search_words to search_string
-    Password = Struct.new :name, :password, :search_words do
+    Password = Struct.new :name, :password, :search_string do
       def match?(query)
-        name.include?(query) || search_words.include?(query)
+        name.include?(query) || search_string.include?(query)
       end
     end
 
@@ -21,7 +20,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
     def add(name, data)
       @passwords[name] = Password.new name,
                                       data.fetch('password'),
-                                      data.fetch('search_words')
+                                      data.fetch('search_string')
     end
 
     def ==(passwords)
@@ -35,8 +34,8 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
     def to_primitive_data
       {'passwords' => inject({}) { |pws, pw|
                         pws.merge pw.name => {
-                          'password'     => pw.password,
-                          'search_words' => pw.search_words,
+                          'password'      => pw.password,
+                          'search_string' => pw.search_string,
                         }
                       }
       }

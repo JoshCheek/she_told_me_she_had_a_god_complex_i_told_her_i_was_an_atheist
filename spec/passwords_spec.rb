@@ -6,7 +6,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
     describe '[]' do
       it 'returns the password associated to the given name' do
-        passwords.add 'a', 'password' => 'pass', 'search_words' => 'search words'
+        passwords.add 'a', 'password' => 'pass', 'search_string' => 'search string'
         passwords['a'].name.should == 'a'
       end
 
@@ -24,15 +24,15 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         # match
         passwords1a = described_class.new
         passwords1b = described_class.new
-        passwords1a.add 'one', 'password' => 'pass', 'search_words' => 'search words'
-        passwords1b.add 'one', 'password' => 'pass', 'search_words' => 'search words'
+        passwords1a.add 'one', 'password' => 'pass', 'search_string' => 'search string'
+        passwords1b.add 'one', 'password' => 'pass', 'search_string' => 'search string'
         passwords1a.should == passwords1b
         passwords1a.should_not == empty_passwords
         passwords1b.should_not == empty_passwords
 
         # different names
         passwords2 = described_class.new
-        passwords2.add 'two', 'password' => 'pass', 'search_words' => 'search words'
+        passwords2.add 'two', 'password' => 'pass', 'search_string' => 'search string'
         empty_passwords.should_not == passwords2
         passwords2.should_not == empty_passwords
         passwords2.should_not == passwords1a
@@ -40,13 +40,13 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
         # different passes
         passwords3 = described_class.new
-        passwords3.add 'one', 'password' => 'different pass', 'search_words' => 'search words'
+        passwords3.add 'one', 'password' => 'different pass', 'search_string' => 'search string'
         passwords3.should_not == passwords1a
         passwords1a.should_not == passwords3
 
-        # different search words
+        # different search string
         passwords4 = described_class.new
-        passwords4.add 'one', 'password' => 'pass', 'search_words' => 'different search words'
+        passwords4.add 'one', 'password' => 'pass', 'search_string' => 'different search string'
         passwords4.should_not == passwords1a
         passwords1a.should_not == passwords4
       end
@@ -55,24 +55,24 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
     describe 'add' do
       it 'adds a password' do
         passwords['the name'].should be_nil
-        passwords.add 'the name', 'password' => 'the password', 'search_words' => 'the search words'
+        passwords.add 'the name', 'password' => 'the password', 'search_string' => 'the search string'
         passwords['the name'].name.should == 'the name'
         passwords['the name'].password.should == 'the password'
-        passwords['the name'].search_words.should == 'the search words'
+        passwords['the name'].search_string.should == 'the search string'
       end
 
       it 'returns the added password' do
-        password = passwords.add 'the name', 'password' => 'the password', 'search_words' => 'the search words'
+        password = passwords.add 'the name', 'password' => 'the password', 'search_string' => 'the search string'
         password.name.should == 'the name'
         password.password.should == 'the password'
-        password.search_words.should == 'the search words'
+        password.search_string.should == 'the search string'
       end
     end
 
     describe 'enumerables' do
       it 'implements enumerable' do
-        passwords.add 'one', 'password' => 'pass1', 'search_words' => 'search words1'
-        passwords.add 'two', 'password' => 'pass2', 'search_words' => 'search words2'
+        passwords.add 'one', 'password' => 'pass1', 'search_string' => 'search string1'
+        passwords.add 'two', 'password' => 'pass2', 'search_string' => 'search string2'
         passwords.map(&:name).should == %w[one two]
       end
     end
@@ -80,16 +80,16 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
   describe Passwords::Password do
     describe 'match?' do
-      def will_match(name, search_words, query)
-        described_class.new(name, 'password', search_words).should be_match query
+      def will_match(name, search_string, query)
+        described_class.new(name, 'password', search_string).should be_match query
       end
 
-      def will_not_match(name, search_words, query)
-        described_class.new(name, 'password', search_words).should_not be_match query
+      def will_not_match(name, search_string, query)
+        described_class.new(name, 'password', search_string).should_not be_match query
       end
 
-      it 'returns true if the word is a substring of its search words or name' do
-        # search words
+      it 'returns true if the word is a substring of its search_string or name' do
+        # search string
         will_match '', 'abc def', 'abc'
         will_match '', 'abc def', 'def'
         will_match '', 'abc def', 'a'

@@ -1,8 +1,6 @@
 require 'spec_helper'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist'
 
-# TODO: rename "search_terms" to "search_string" internally
-
 describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::GetPassword do
 
   # perhaps these should be some rspec-wide helpers?
@@ -16,8 +14,8 @@ describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::GetPassword do
     passwords
   end
 
-  def password_data(name, search_words)
-    [name, {'password' => 'irrelevant', 'search_words' => search_words}]
+  def password_data(name, search_string)
+    [name, {'password' => 'irrelevant', 'search_string' => search_string}]
   end
 
 
