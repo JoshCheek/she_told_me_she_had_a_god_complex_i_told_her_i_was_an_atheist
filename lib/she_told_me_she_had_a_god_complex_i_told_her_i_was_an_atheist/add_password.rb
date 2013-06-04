@@ -2,8 +2,6 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class AddPassword
     Callable.call self, :interface
 
-    # this is actually the logic behind AddPassword,
-    # figure out later how we want to deal with the multiple use cases
     def call
       # encrypted passwords data must exist
       encrypted_passwords = interface.retrieve_encrypted_passwords

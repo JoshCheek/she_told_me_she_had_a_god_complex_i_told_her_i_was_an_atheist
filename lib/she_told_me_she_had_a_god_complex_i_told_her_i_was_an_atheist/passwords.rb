@@ -1,5 +1,6 @@
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class Passwords
+    # rename search_words to search_string
     Password = Struct.new :name, :password, :search_words do
       def match?(query)
         name.include?(query) || search_words.include?(query)
