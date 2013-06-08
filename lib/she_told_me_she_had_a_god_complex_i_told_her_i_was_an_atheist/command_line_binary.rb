@@ -8,15 +8,15 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
     def call
       if argv == ['--set'] && File.exist?(password_filename)
-        use_case(ResetMasterPassword) { io.success "your master password has been set" }
+        use_case(UseCases::ResetMasterPassword) { io.success "your master password has been set" }
       elsif argv == ['--set']
-        use_case(SetMasterPassword) { io.success "your master password has been set" }
+        use_case(UseCases::SetMasterPassword) { io.success "your master password has been set" }
       elsif argv == ['--add']
-        use_case(AddPassword) { |password| io.success "your password for '#{password.name}' is now being stored" } # uhm, use name.inspect once we fix haiti up a bit
+        use_case(UseCases::AddPassword) { |password| io.success "your password for '#{password.name}' is now being stored" } # uhm, use name.inspect once we fix haiti up a bit
       elsif argv == ['--list']
-        use_case ListPassword
+        use_case UseCases::ListPassword
       else
-        use_case(GetPassword) { |password|
+        use_case(UseCases::GetPassword) { |password|
           io.success "'#{password.name}' was copied to your clipboard"
           io.success "login: '#{password.login}'"
         } # uhm, use name.inspect once we fix haiti up a bit

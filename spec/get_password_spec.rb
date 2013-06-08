@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist'
 
-describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::GetPassword do
+describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::UseCases::GetPassword do
 
   # perhaps these should be some rspec-wide helpers?
   let(:master_pass) { 'MASTER PASS!' }
