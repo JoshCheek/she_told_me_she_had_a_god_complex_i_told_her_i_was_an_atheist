@@ -6,9 +6,9 @@ Feature: List the passwords
 
   Background:
     Given a password file with
-    | name     | password  | search words |
-    | my bank  | bank pass | banking      |
-    | my mail  | mail pass | email        |
+    | name     | login      | password  | search words |
+    | my bank  | bank_login | bank pass | banking      |
+    | my mail  | mail_login | mail pass | email        |
 
   Scenario: No master password set
     Given I delete my password file
@@ -26,8 +26,8 @@ Feature: List the passwords
     And the exit status is 1
 
   Scenario: Listing with no passwords
+    Given a password file with
+    | name     | login      | password  | search words |
     And  the stdin content "{{master_password}}"
     When I run "atheist --list"
-    Then stdout includes "my bank"
-    And stdout includes "my mail"
-    And stdout does not include "bank pass"
+    Then stderr includes "no passwords to list"

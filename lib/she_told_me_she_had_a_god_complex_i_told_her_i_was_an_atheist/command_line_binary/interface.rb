@@ -42,6 +42,10 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         self.exit_status = 1
       end
 
+      def login
+        @login ||= io.ask "enter your login: "
+      end
+
       def should_override_name?
         @override_name ||= io.boolean "#{name.inspect} is already being stored, override it? (y/N)",
             true: /^y/i,
@@ -91,10 +95,13 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       end
 
       def list_passwords(passwords)
-        name_size = passwords.map(&:name).map(&:size).max
+        return io.failure 'no passwords to list' if passwords.empty?
+        name_size  = passwords.map(&:name).map(&:size).max
+        login_size = passwords.map(&:login).map(&:size).max
         passwords.each do |password|
-          message = sprintf "%#{name_size}s | %s\n", password.name, password.search_string
-          io.tell message
+          io.tell "%#{name_size}s | %#{login_size} | %s\n" % [
+                   password.name,   password.login,  password.search_string
+          ]
         end
       end
     end

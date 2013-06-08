@@ -19,10 +19,12 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       # user must confirm override if name already exists
       return interface.fail_cuz_no_name_override if passwords[name] && !interface.should_override_name?
 
+      # remove the part where we pass the name, the interface already has access to this
+      login         = interface.login
       search_string = interface.search_string name # could hypothetically fail here
       password      = interface.password      name # could hypothetically fail here
 
-      added_password = passwords.add name, 'password' => password, 'search_string' => search_string
+      added_password = passwords.add name, 'password' => password, 'login' => login, 'search_string' => search_string
 
       encrypted_passwords = Encrypt.call passwords, master_password
 

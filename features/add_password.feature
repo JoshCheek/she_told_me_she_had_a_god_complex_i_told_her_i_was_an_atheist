@@ -4,31 +4,33 @@ Feature: Add a password
 
   Scenario: Add the password
     Given a password file with
-    | name    | password | search words |
-    | my bank | abc123   | banking      |
+    | name    | login      | password | search words |
+    | my bank | bank_login | abc123   | banking      |
     Given the stdin content:
     """
     {{master_password}}
     gmail.com
+    josh.cheek@gmail.com
     email mail gmail google
     elivSZOK75b5ZFjD5fTi
     """
     When I run "atheist --add"
     Then stdout includes "enter your master password: "
     And  stdout includes "what is this a password for? "
+    And  stdout includes "enter your login: "
     And  stdout includes "enter search words: "
     And  stdout includes "enter the password for gmail.com: "
     And  stdout includes "your password for 'gmail.com' is now being stored"
     And the exit status is 0
     And my a password file contains
-    | name      | password             | search words            |
-    | my bank   | abc123               | banking                 |
-    | gmail.com | elivSZOK75b5ZFjD5fTi | email mail gmail google |
+    | name      | login                | password             | search words            |
+    | my bank   | bank_login           | abc123               | banking                 |
+    | gmail.com | josh.cheek@gmail.com | elivSZOK75b5ZFjD5fTi | email mail gmail google |
 
   Scenario: Incorrect master password
     Given a password file with
-    | name    | password | search words |
-    | my bank | abc123   | banking      |
+    | name    | login      | password | search words |
+    | my bank | bank_login | abc123   | banking      |
     Given the stdin content "wrong master password"
     When I run "atheist --add"
     Then stdout includes "enter your master password: "
@@ -36,13 +38,13 @@ Feature: Add a password
     And  stderr includes "incorrect master password"
     And the exit status is 1
     And my a password file contains
-    | name    | password | search words |
-    | my bank | abc123   | banking      |
+    | name    | login      | password | search words |
+    | my bank | bank_login | abc123   | banking      |
 
   Scenario: Invalid name
     Given a password file with
-    | name    | password | search words |
-    | my bank | abc123   | banking      |
+    | name    | login      | password | search words |
+    | my bank | bank_login | abc123   | banking      |
     Given the stdin content:
     """
     {{master_password}}
@@ -56,13 +58,13 @@ Feature: Add a password
     And  stderr includes "invalid name"
     And the exit status is 1
     And my a password file contains
-    | name    | password | search words |
-    | my bank | abc123   | banking      |
+    | name    | login      | password | search words |
+    | my bank | bank_login | abc123   | banking      |
 
-  Scenario: Unintentional duplicate name
+  Scenario: Unintentional duplicate name, explicit cancellation
     Given a password file with
-    | name    | password | search words |
-    | my bank | abc123   | banking      |
+    | name    | login      | password | search words |
+    | my bank | bank_login | abc123   | banking      |
     Given the stdin content:
     """
     {{master_password}}
@@ -76,13 +78,13 @@ Feature: Add a password
     # And  stdout does not include "enter search words: "
     And the exit status is 0
     And my a password file contains
-    | name    | password | search words |
-    | my bank | abc123   | banking      |
+    | name    | login      | password | search words |
+    | my bank | bank_login | abc123   | banking      |
 
-  Scenario: Unintentional duplicate name
+  Scenario: Unintentional duplicate name, implicit cancellation
     Given a password file with
-    | name    | password | search words |
-    | my bank | abc123   | banking      |
+    | name    | login      | password | search words |
+    | my bank | bank_login | abc123   | banking      |
     Given the stdin content:
     """
     {{master_password}}
@@ -97,18 +99,19 @@ Feature: Add a password
     # And  stdout does not include "enter search words: "
     And the exit status is 0
     And my a password file contains
-    | name    | password | search words |
-    | my bank | abc123   | banking      |
+    | name    | login      | password | search words |
+    | my bank | bank_login | abc123   | banking      |
 
   Scenario: Intentional duplicate name
     Given a password file with
-    | name    | password | search words |
-    | my bank | abc123   | banking      |
+    | name    | login      | password | search words |
+    | my bank | bank_login | abc123   | banking      |
     Given the stdin content:
     """
     {{master_password}}
     my bank
     y
+    new_login
     money loans credit cards
     new password
     """
@@ -116,13 +119,14 @@ Feature: Add a password
     Then stdout includes "enter your master password: "
     # And  stdout includes '"my bank" is already being stored, override it? (y/N) "
     And  stdout includes "what is this a password for? "
+    And  stdout includes "enter your login: "
     And  stdout includes "enter search words: "
     And  stdout includes "enter the password for my bank: "
     And  stdout includes "your password for 'my bank' is now being stored"
     And the exit status is 0
     And my a password file contains
-    | name      | password             | search words             |
-    | my bank   | new password         | money loans credit cards |
+    | name    | login     | password     | search words             |
+    | my bank | new_login | new password | money loans credit cards |
 
   Scenario: No master password set
     Given I delete my password file

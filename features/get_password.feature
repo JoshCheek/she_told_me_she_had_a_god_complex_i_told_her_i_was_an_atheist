@@ -5,9 +5,9 @@ Feature: Retrieve a password
 
   Background:
     Given a password file with
-    | name     | password  | search words |
-    | my bank  | bank pass | banking      |
-    | my mail  | mail pass | email        |
+    | name     | login      | password  | search words |
+    | my bank  | bank_login | bank pass | banking      |
+    | my mail  | mail_login | mail pass | email        |
 
   Scenario: No master password set
     Given I delete my password file
@@ -27,7 +27,8 @@ Feature: Retrieve a password
   Scenario: entering a phrase that matches
     Given the stdin content "{{master_password}}"
     When I run "atheist bank"
-    And  stdout includes "'my bank' was copied to your clipboard"
+    Then  stdout includes "'my bank' was copied to your clipboard"
+    And   stdout includes "login: 'bank_login'"
     And  "bank pass" was copied to my clipboard
     And the exit status is 0
 

@@ -15,7 +15,7 @@ describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::GetPassword do
   end
 
   def password_data(name, search_string)
-    [name, {'password' => 'irrelevant', 'search_string' => search_string}]
+    [name, {'password' => 'irrelevant', 'login' => 'login', 'search_string' => search_string}]
   end
 
 

@@ -16,7 +16,10 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       elsif argv == ['--list']
         use_case ListPassword
       else
-        use_case(GetPassword) { |password| io.success "'#{password.name}' was copied to your clipboard" } # uhm, use name.inspect once we fix haiti up a bit
+        use_case(GetPassword) { |password|
+          io.success "'#{password.name}' was copied to your clipboard"
+          io.success "login: '#{password.login}'"
+        } # uhm, use name.inspect once we fix haiti up a bit
       end
     end
 
