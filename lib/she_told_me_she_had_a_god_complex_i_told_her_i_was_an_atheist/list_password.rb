@@ -13,7 +13,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       return interface.fail_cuz_your_master_password_is_wrong unless passwords
 
       interface.list_passwords passwords
-      interface.success
+      interface.succeed
     end
   end
 end

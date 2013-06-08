@@ -5,7 +5,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
     def call
       encrypted_passwords = Encrypt.call(Passwords.new, interface.master_password)
       interface.persist_encrypted_passwords encrypted_passwords
-      interface.success
+      interface.succeed
     end
   end
 end

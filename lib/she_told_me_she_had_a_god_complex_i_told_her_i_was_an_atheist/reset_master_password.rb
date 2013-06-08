@@ -8,7 +8,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       if decrypted_passwords
         encrypted_passwords = Encrypt.call decrypted_passwords, interface.new_master_password
         interface.persist_encrypted_passwords encrypted_passwords
-        interface.success
+        interface.succeed
       else
         interface.fail_cuz_your_master_password_is_wrong
       end

@@ -2,13 +2,13 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class CommandLineBinary
 
     class Interface
-      attr_accessor :argv, :io, :password_filename, :exit_status, :success_callback
+      attr_accessor :argv, :io, :password_filename, :exit_status, :succeed_callback
 
-      def initialize(argv, io, password_filename, &success_callback)
+      def initialize(argv, io, password_filename, &succeed_callback)
         self.argv              = argv
         self.io                = io
         self.password_filename = password_filename
-        self.success_callback  = success_callback || Proc.new {}
+        self.succeed_callback  = succeed_callback || Proc.new {}
       end
 
       def words_searched_for
@@ -80,9 +80,9 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         File.open(password_filename, 'w') { |f| f.write encrypted_file }
       end
 
-      def success(*args)
+      def succeed(*args)
         self.exit_status = 0
-        success_callback.call(*args)
+        succeed_callback.call(*args)
         exit_status
       end
 

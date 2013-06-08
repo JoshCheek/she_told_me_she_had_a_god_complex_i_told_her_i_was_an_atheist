@@ -40,7 +40,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       Pasteboard.new.put [[Pasteboard::Type::UTF_8, matching_password.password]]
 
       # hooray, we did it!
-      interface.success matching_password
+      interface.succeed matching_password
     end
   end
 end

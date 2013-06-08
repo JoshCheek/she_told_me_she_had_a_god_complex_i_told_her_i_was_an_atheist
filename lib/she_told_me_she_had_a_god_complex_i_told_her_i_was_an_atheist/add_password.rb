@@ -30,7 +30,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
       interface.persist_encrypted_passwords encrypted_passwords # could hypothetically fail here
 
-      interface.success added_password
+      interface.succeed added_password
     end
   end
 end

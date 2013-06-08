@@ -14,8 +14,7 @@ module Interfaces
     define(:search_string)                { |name| 'search string' }
     define(:password)                     { |name| 'password' }
     define(:persist_encrypted_passwords)  { |encrypted_file| }
-    # rename success -> succeed
-    define(:success)                      { |*args| }
+    define(:succeed)                      { |*args| }
     define(:old_master_password)          { 'old master password' }
     define(:new_master_password)          { 'new master password' }
 

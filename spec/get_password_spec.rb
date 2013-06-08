@@ -45,7 +45,7 @@ describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::GetPassword do
     interface.will_have_master_password master_pass.reverse
     call.should == :fail_cuz_your_master_password_is_wrong
     # surrogate: maybe also told_about, e.g. `.was_not told_about :success`
-    interface.was_not told_to :success
+    interface.was_not told_to :succeed
   end
 
   describe 'finding the password to get' do
@@ -53,7 +53,7 @@ describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::GetPassword do
       passwords = has_passwords password_data('pass match', 'search1'), password_data('pass2', 'search2')
       interface.will_have_words_searched_for ['pass', 'match']
       call
-      interface.was told_to(:success).with passwords['pass match']
+      interface.was told_to(:succeed).with passwords['pass match']
     end
 
     # alias told_to told_about
@@ -62,21 +62,21 @@ describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::GetPassword do
       passwords = has_passwords password_data('pass1', 'match1'), password_data('pass2', 'search2')
       interface.will_have_words_searched_for ['match', '1']
       call
-      interface.was told_to(:success).with passwords['pass1']
+      interface.was told_to(:succeed).with passwords['pass1']
     end
 
     it 'finds the matching name even if there are others with matching search terms' do
       passwords = has_passwords password_data('pass1', 'match1'), password_data('match2', 'search2'), password_data('pass3', 'match3')
       interface.will_have_words_searched_for ['match']
       call
-      interface.was told_to(:success).with passwords['match2']
+      interface.was told_to(:succeed).with passwords['match2']
     end
 
     it 'finds the matching name/search terms' do
       passwords = has_passwords password_data('pass1', 'search1'), password_data('pass2', 'match2')
       interface.will_have_words_searched_for ['pass', 'match']
       call
-      interface.was told_to(:success).with passwords['pass2']
+      interface.was told_to(:succeed).with passwords['pass2']
     end
 
     it 'fails if there are multiple matching names' do
@@ -101,10 +101,10 @@ describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::GetPassword do
     end
   end
 
-  it 'returns the success result when it succeeds' do
+  it 'returns the succeed result when it succeeds' do
     has_passwords password_data('match', 'match')
     interface.will_have_words_searched_for ['match']
     call
-    interface.was told_to(:success)
+    interface.was told_to(:succeed)
   end
 end
