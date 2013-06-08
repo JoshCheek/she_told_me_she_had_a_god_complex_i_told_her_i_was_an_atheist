@@ -24,6 +24,10 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         stdin.ask prompt
       end
 
+      def tell(message)
+        stdout.say message
+      end
+
       def success(message)
         stdout.say stdout.color(message, :green)
       end

@@ -13,6 +13,8 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         use_case(SetMasterPassword) { io.success "your master password has been set" }
       elsif argv == ['--add']
         use_case(AddPassword) { |password| io.success "your password for '#{password.name}' is now being stored" } # uhm, use name.inspect once we fix haiti up a bit
+      elsif argv == ['--list']
+        use_case ListPassword
       else
         use_case(GetPassword) { |password| io.success "'#{password.name}' was copied to your clipboard" } # uhm, use name.inspect once we fix haiti up a bit
       end

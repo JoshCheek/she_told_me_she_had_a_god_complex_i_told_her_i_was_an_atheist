@@ -20,7 +20,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
       return interface.fail_cuz_no_name_override if passwords[name] && !interface.should_override_name?
 
       search_string = interface.search_string name # could hypothetically fail here
-      password      = interface.password     name # could hypothetically fail here
+      password      = interface.password      name # could hypothetically fail here
 
       added_password = passwords.add name, 'password' => password, 'search_string' => search_string
 

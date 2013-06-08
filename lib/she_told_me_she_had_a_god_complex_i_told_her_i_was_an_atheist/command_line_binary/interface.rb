@@ -8,7 +8,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         self.argv              = argv
         self.io                = io
         self.password_filename = password_filename
-        self.success_callback  = success_callback
+        self.success_callback  = success_callback || Proc.new {}
       end
 
       def words_searched_for
@@ -88,6 +88,14 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
       def new_master_password
         @new_master_password ||= io.password 'enter your new passord: '
+      end
+
+      def list_passwords(passwords)
+        name_size = passwords.map(&:name).map(&:size).max
+        passwords.each do |password|
+          message = sprintf "%#{name_size}s | %s\n", password.name, password.search_string
+          io.tell message
+        end
       end
     end
   end
