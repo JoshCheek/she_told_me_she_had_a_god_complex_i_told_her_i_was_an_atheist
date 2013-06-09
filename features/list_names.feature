@@ -25,6 +25,15 @@ Feature: List the passwords
     And  stderr includes "incorrect master password"
     And the exit status is 1
 
+  Scenario: Listing with multiple passwords
+    Given the stdin content "{{master_password}}"
+    When I run "atheist --list"
+    Then stdout includes "my bank"
+    Then stdout includes "bank_login"
+    Then stdout includes "banking"
+    Then stdout includes "my mail"
+    Then stdout does not include "bank pass"
+
   Scenario: Listing with no passwords
     Given a password file with
     | name     | login      | password  | search words |

@@ -96,12 +96,13 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
 
       def list_passwords(passwords)
         return io.failure 'no passwords to list' if passwords.empty?
-        name_size  = passwords.map(&:name).map(&:size).max
-        login_size = passwords.map(&:login).map(&:size).max
+        name_size     = passwords.map(&:name).map(&:size).max
+        login_size    = passwords.map(&:login).map(&:size).max
+        format_string = "%#{name_size}s | %#{login_size}s | %s\n"
+
+        io.tell format_string.gsub('%', '%-') % ['NAME', 'LOGIN', 'SEARCH WORDS']
         passwords.each do |password|
-          io.tell "%#{name_size}s | %#{login_size} | %s\n" % [
-                   password.name,   password.login,  password.search_string
-          ]
+          io.tell format_string % [password.name, password.login, password.search_string]
         end
       end
     end
