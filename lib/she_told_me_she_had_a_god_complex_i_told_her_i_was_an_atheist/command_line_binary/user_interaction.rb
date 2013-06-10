@@ -28,6 +28,15 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         @master_password ||= io.password 'enter your master password: '
       end
 
+      def master_password_confirmation
+        @master_password_confirmation ||= io.password 're-enter your master password: '
+      end
+
+      def fail_cuz_your_master_password_confirmation_does_not_match
+        io.failure "Your password confirmation does not match"
+        self.exit_status = 1
+      end
+
       def fail_cuz_your_master_password_is_wrong
         io.failure "incorrect master password"
         self.exit_status = 1

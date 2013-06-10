@@ -2,16 +2,33 @@ Feature: Set the master password
 
   To store our passwords, we need one password to rule them all
 
-  # should probably confirm
   Scenario: Set the master password
-    Given the stdin content "mah first pass"
+    Given the stdin content:
+    """
+    mah first pass
+    mah first pass
+    """
     When I run "atheist --set"
     Then stdout includes "your master password has been set"
     And the exit status is 0
 
-  # should probably confirm
+  Scenario: Failing to confirm master password
+    Given the stdin content:
+    """
+    mah first pass
+    not mah first pass
+    """
+    When I run "atheist --set"
+    Then stderr includes "confirmation does not match"
+    And the exit status is 1
+
+  # later on, switch this over to use "Given a password file with"
   Scenario: Reset the master password
-    Given the stdin content "mah first pass"
+    Given the stdin content:
+    """
+    mah first pass
+    mah first pass
+    """
     When I run "atheist --set"
     Then stdout includes "your master password has been set"
     Given the stdin content:
@@ -26,7 +43,11 @@ Feature: Set the master password
 
   # later on, switch this over to use "Given a password file with"
   Scenario: Failing to reset the master password
-    Given the stdin content "mah first pass"
+    Given the stdin content:
+    """
+    mah first pass
+    mah first pass
+    """
     When I run "atheist --set"
     Then stdout includes "your master password has been set"
     Given the stdin content "not mah first pass"
