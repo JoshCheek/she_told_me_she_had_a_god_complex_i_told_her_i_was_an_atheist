@@ -1,12 +1,12 @@
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   module UseCases
     class SetMasterPassword
-      Callable.call self, :interface
+      Callable.call self, :interaction
 
       def call
-        encrypted_passwords = Encrypt.call(Passwords.new, interface.master_password)
-        interface.persist_encrypted_passwords encrypted_passwords
-        interface.succeed
+        encrypted_passwords = Encrypt.call(Passwords.new, interaction.master_password)
+        interaction.persist_encrypted_passwords encrypted_passwords
+        interaction.succeed
       end
     end
   end

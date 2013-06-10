@@ -1,5 +1,5 @@
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist'
-require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/command_line_binary/interface'
+require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/command_line_binary/user_interaction'
 require 'she_told_me_she_had_a_god_complex_i_told_her_i_was_an_atheist/command_line_binary/high_line_io'
 
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
@@ -33,7 +33,7 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
     end
 
     def use_case(use_case, &message)
-      use_case.call Interface.new(argv, io, password_filename, &message)
+      use_case.call UserInteraction.new(argv, io, password_filename, &message)
     end
   end
 end

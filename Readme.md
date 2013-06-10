@@ -69,7 +69,7 @@ Cool features I'll probably never add
 * Confirm passwords
 * Set a time limit with which the master password is not needed (uhm, I think this means keep a process running in the bg that has the unencrypted file loaded, then always check for like a pid or something to talk to it and ask it for the password.)
 * Generate passwords given constraints
-* Rename Interface -> UserInteraction
+* Rename lib
 
 License
 -------

@@ -1,7 +1,7 @@
 module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
   class CommandLineBinary
 
-    class Interface
+    class UserInteraction
       attr_accessor :argv, :io, :password_filename, :exit_status, :succeed_callback
 
       def initialize(argv, io, password_filename, &succeed_callback)

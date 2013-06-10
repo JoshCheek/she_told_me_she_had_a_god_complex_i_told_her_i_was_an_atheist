@@ -1,7 +1,7 @@
 require 'surrogate/rspec'
 
 module Interfaces
-  class Interface
+  class UserInteraction
     Surrogate.endow self
 
     atheist = SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
