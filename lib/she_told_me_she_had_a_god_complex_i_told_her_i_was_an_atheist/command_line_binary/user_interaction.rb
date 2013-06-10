@@ -103,6 +103,15 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         @new_master_password ||= io.password 'enter your new passord: '
       end
 
+      def new_master_password_confirmation
+        @new_master_password_confirmation ||= io.password 're-enter your master password: '
+      end
+
+      def fail_cuz_your_new_master_password_confirmation_does_not_match
+        io.failure "Your password confirmation does not match"
+        self.exit_status = 1
+      end
+
       def list_passwords(passwords)
         return io.failure 'no passwords to list' if passwords.empty?
         name_size     = passwords.map(&:name).map(&:size).max
