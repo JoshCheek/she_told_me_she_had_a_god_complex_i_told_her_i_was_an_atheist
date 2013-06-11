@@ -9,6 +9,7 @@ module Interfaces
     define(:master_password)                  { _master_password }
     define(:master_password_confirmation)     { _master_password }
     define(:name)                             { 'name' }
+    define(:login)                            { 'some_login' }
     define(:should_override_name?)            { true }
     define(:search_string)                    { |name| 'search string' }
     define(:password)                         { |name| 'password' }
