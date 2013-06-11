@@ -85,6 +85,15 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         @password ||= io.password "enter the password for #{name}: "
       end
 
+      def password_confirmation
+        @password_confirmation ||= io.password 're-enter your password: '
+      end
+
+      def fail_cuz_your_password_confirmation_does_not_match
+        io.failure "Your password confirmation does not match"
+        self.exit_status = 1
+      end
+
       def persist_encrypted_passwords(encrypted_file)
         File.open(password_filename, 'w') { |f| f.write encrypted_file }
       end

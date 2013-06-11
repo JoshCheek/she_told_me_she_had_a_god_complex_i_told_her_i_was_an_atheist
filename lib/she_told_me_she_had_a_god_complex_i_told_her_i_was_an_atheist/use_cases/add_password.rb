@@ -24,6 +24,9 @@ module SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist
         login         = interaction.login
         search_string = interaction.search_string name # could hypothetically fail here
         password      = interaction.password      name # could hypothetically fail here
+        confirmation  = interaction.password_confirmation
+
+        return interaction.fail_cuz_your_password_confirmation_does_not_match if password != confirmation
 
         added_password = passwords.add name, 'password' => password, 'login' => login, 'search_string' => search_string
 

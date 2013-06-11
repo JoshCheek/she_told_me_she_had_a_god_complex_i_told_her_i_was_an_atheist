@@ -42,7 +42,7 @@ describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::UseCases::AddPassword 
     interaction.was_not asked_for :login
   end
 
-  it 'requires a confirmation if the password being added already exists' do
+  it 'requires a confirmation of overriding, if the password being added already exists' do
     has_passwords password_data('gmail.com', 'mail google')
     interaction.will_have_name 'gmail.com'
     interaction.will_should_override_name? false # isn't there a way to do this better? it seems undocumented
@@ -51,14 +51,22 @@ describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::UseCases::AddPassword 
     interaction.was_not asked_for :login
   end
 
+  it 'fails if the password and its confirmation do not match', t:true do
+    interaction.will_have_password 'pass1'
+    interaction.will_have_password_confirmation 'pass2'
+    call.should == :fail_cuz_your_password_confirmation_does_not_match
+    interaction.was_not told_to :persist_encrypted_passwords
+  end
+
   it 'adds the password to the password list' do
     interaction.will_have_name 'gmail.com'
     interaction.will_have_login 'josh.cheek@gmail.com'
     interaction.will_have_search_string 'mail google'
     interaction.will_have_password 'super secret pass'
+    interaction.will_have_password_confirmation 'super secret pass'
     interaction.will_should_override_name? false # shows that this will not be invoked, b/c there is no conflict
-    call
-    interaction.was told_to :succeed
+    interaction.will_succeed :succeed
+    call.should == :succeed
     encrypted_passwords = interaction.instance_variable_get('@hatchling').invocations(:persist_encrypted_passwords).first.args.first # blech
     decrypted_passwords = atheist::Decrypt.call encrypted_passwords, master_pass
     decrypted_passwords['gmail.com'].tap do |pass|
@@ -74,8 +82,8 @@ describe SheToldMeSheHadAGodComplexIToldHerIWasAnAtheist::UseCases::AddPassword 
     interaction.will_have_name 'gmail.com'
     interaction.will_have_search_string 'some new search string'
     interaction.will_should_override_name? true # isn't there a way to do this better? it seems undocumented
-    call
-    interaction.was told_to :succeed
+    interaction.will_succeed :succeed
+    call.should == :succeed
     encrypted_passwords = interaction.instance_variable_get('@hatchling').invocations(:persist_encrypted_passwords).first.args.first # blech
     atheist::Decrypt.call(encrypted_passwords, master_pass)['gmail.com'].search_string.should == 'some new search string'
   end
