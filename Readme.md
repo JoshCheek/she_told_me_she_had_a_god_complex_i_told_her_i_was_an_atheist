@@ -89,4 +89,9 @@ License
 
       0. You just DO WHAT THE FUCK YOU WANT TO.
 
+NO WARRANTY
+-----------
 
+This probably doesn't work, it's probably insecure, you'll probably lose all your passes
+and your money and your secrets. Don't use it. I'm mostly just posting it b/c I like some
+of the code patterns that emerged while working on this.
